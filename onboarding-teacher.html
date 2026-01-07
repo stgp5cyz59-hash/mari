@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MA'RIFA - Добро пожаловать, Учитель</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .onboarding-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .onboarding-container {
+        max-width: 700px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 30px;
+        padding: 60px 50px;
+        text-align: center;
+        box-shadow: 0 30px 70px rgba(138, 74, 95, 0.25);
+      }
+
+      .welcome-arabic {
+        font-family: "Amiri", serif;
+        font-size: 4rem;
+        color: #2d1b4e;
+        margin-bottom: 30px;
+      }
+
+      .welcome-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 3rem;
+        color: #8a4a5f;
+        margin-bottom: 40px;
+      }
+
+      .start-btn {
+        display: inline-block;
+        padding: 20px 60px;
+        background: linear-gradient(135deg, #d4a574, #c1955e);
+        color: #2d1b4e;
+        border-radius: 50px;
+        text-decoration: none;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-top: 40px;
+        transition: 0.3s;
+        border: none;
+        cursor: pointer;
+      }
+
+      .start-btn:hover {
+        transform: scale(1.05);
+        color: white;
+      }
+    </style>
+    <!-- Подключаем Font Awesome для иконок -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Шрифты как в index.html -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700;800&family=Cormorant+Garamond:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="background-image"></div>
+    <div class="background-overlay"></div>
+
+    <div class="onboarding-page">
+      <div class="onboarding-container">
+        <!-- Приветствие на арабском -->
+        <div class="welcome-arabic">ٱلسَّلَامُ عَلَيْكُمْ</div>
+
+        <!-- Заголовок -->
+        <h1 class="welcome-title" id="teacherTitle">
+          Добро пожаловать, Учитель!
+        </h1>
+
+        <!-- Основной текст -->
+        <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 30px">
+          Ваша благородная миссия передавать знания начинается.<br />
+          Начните с чистого намерения, и Аллах благословит ваш труд.
+        </p>
+
+        <!-- Цитата для учителя -->
+        <div
+          style="
+            background: rgba(212, 165, 116, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+          "
+        >
+          <p style="font-style: italic; font-size: 1.3rem">
+            "Лучший из вас — изучающий Коран и обучающий ему других"
+          </p>
+          <p style="margin-top: 10px; color: #d4a574">— Аль-Бухари</p>
+        </div>
+
+        <!-- Дополнительный текст -->
+        <p style="font-size: 1.1rem; line-height: 1.6; color: #4a4048">
+          Как <strong>حَامِلُ الْعِلْمِ</strong> (несущий знание), вы берёте на
+          себя ответственность<br />
+          за передачу искусства таджвида новым поколениям.
+        </p>
+
+        <!-- Кнопка начала -->
+        <button class="start-btn" id="startTeachingBtn">
+          <i class="fas fa-chalkboard-teacher"></i> Открыть кабинет
+          преподавателя
+        </button>
+      </div>
+    </div>
+
+    <!-- Скрипт -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Загружаем данные пользователя
+        const userData = JSON.parse(localStorage.getItem('marifa_user'));
+
+        // Если нет данных, возвращаем на регистрацию
+        if (!userData) {
+          alert('Пожалуйста, зарегистрируйтесь сначала');
+          window.location.href = 'register.html';
+          return;
+        }// Если пользователь не учитель, перенаправляем
+        if (userData.role !== 'teacher') {
+          window.location.href = 'onboarding-student.html';
+          return;
+        }
+
+        // Отображаем имя пользователя
+        if (userData.name) {
+          document.getElementById('teacherTitle').textContent =
+            Добро пожаловать, ${userData.name}!;
+
+          // Обновляем текст с именем
+          document.querySelector('p:nth-of-type(2)').innerHTML =
+            `Как <strong>حَامِلُ الْعِلْمِ</strong> (несущий знание), ${userData.name.split(' ')[0]},<br>
+            вы берёте на себя ответственность за передачу искусства таджвида новым поколениям.`;
+        }
+
+        // Обработка кнопки
+        document.getElementById('startTeachingBtn').addEventListener('click', function() {
+          this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Открываем кабинет...';
+          this.disabled = true;
+
+          // Переход через 1.5 секунды
+          setTimeout(() => {
+            // Пока просто на главную, потом создадим teacher-dashboard.html
+            window.location.href = 'index.html';
+          }, 1500);
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MA'RIFA - Кабинет учителя</title>
+
+    <!-- Общие стили -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700;800&family=Cormorant+Garamond:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Иконки -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* ===== СТИЛИ КАБИНЕТА УЧИТЕЛЯ - ОБНОВЛЁННЫЕ ===== */
+
+      /* ФОН С ТУМАННЫМ ЭФФЕКТОМ */
+      .teacher-dashboard {
+        min-height: 100vh;
+        padding: 100px 40px 60px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Специальный фон для кабинета учителя */
+      .teacher-bg-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(168, 108, 130, 0.7) 0%,
+          /* Розовый туман */ rgba(138, 74, 95, 0.6) 50%,
+          /* Основной розовый */ rgba(109, 57, 74, 0.7) 100%
+            /* Тёмный розовый */
+        );
+        backdrop-filter: blur(10px); /* Эффект замазывания */
+        z-index: -1;
+      }
+
+      .dashboard-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 10;
+      }
+
+      /* КНОПКА НАЗАД */
+      .back-to-home {
+        position: fixed;
+        top: 30px;
+        left: 30px;
+        z-index: 100;
+      }
+
+      .back-btn {
+        padding: 12px 25px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid rgba(138, 74, 95, 0.3);
+        border-radius: 50px;
+        color: #8a4a5f;
+        text-decoration: none;
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 5px 15px rgba(138, 74, 95, 0.2);
+      }
+
+      .back-btn:hover {
+        background: rgba(138, 74, 95, 0.1);
+        transform: translateX(-5px);
+        border-color: #8a4a5f;
+        box-shadow: 0 8px 20px rgba(138, 74, 95, 0.3);
+      }
+
+      /* ЛОГОТИП В ШАПКЕ */
+      .teacher-logo-container {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 20px 0;
+      }
+
+      .teacher-logo {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .teacher-logo:hover {
+        transform: scale(1.02);
+      }
+
+      .teacher-logo-arabic {
+        font-family: "Amiri", serif;
+        font-size: 4.5rem;
+        color: #ffffff;
+        font-weight: 700;
+        text-shadow: 0 2px 0 rgba(0, 0, 0, 0.4), 0 4px 0 rgba(0, 0, 0, 0.3),
+          0 6px 0 rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 255, 255, 0.1);
+        line-height: 1;
+      }
+
+      .teacher-logo-latin {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2.2rem;
+        color: #f5d5a6;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-weight: 600;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .teacher-logo-subtitle {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.4rem;
+        color: rgba(255, 255, 255, 0.8);
+        font-style: italic;
+        margin-top: 10px;
+        text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      /* ШАПКА ПРОФИЛЯ */
+      .teacher-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 30px 0;
+        position: relative;
+      }
+
+      .teacher-header::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 300px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #f5d5a6, transparent);
+      }
+
+      .greeting-container {
+        margin-bottom: 30px;
+      }
+
+      .greeting-arabic {
+        font-family: "Amiri", serif;
+        font-size: 3.5rem;
+        color: #ffffff;
+        margin-bottom: 15px;
+        text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .greeting-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2.8rem;
+        color: #f5d5a6;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      /* 1. КАРТОЧКА СТАТУСА РАЗРАБОТКИ (ПЕРВАЯ) */
+      .status-card {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(15px);
+        border-radius: 25px;
+        padding: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        max-width: 800px;
+        margin: 0 auto 50px;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(138, 74, 95, 0.3),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .status-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.05) 50%,
+          rgba(255, 255, 255, 0.1) 100%
+        );
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .status-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(245, 213, 166, 0.5);
+        box-shadow: 0 30px 70px rgba(138, 74, 95, 0.4),
+          0 0 0 1px rgba(245, 213, 166, 0.2) inset;
+      }
+
+      .status-icon {
+        color: #f5d5a6;
+        font-size: 3.5rem;
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 2;
+        filter: drop-shadow(0 0 10px rgba(245, 213, 166, 0.3));
+      }
+
+      .status-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2.5rem;
+        color: #ffffff;
+        margin-bottom: 20px;
+        font-weight: 600;
+        position: relative;
+        z-index: 2;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .status-text {
+        font-family: "Inter", sans-serif;
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.95);
+        line-height: 1.7;
+        margin-bottom: 30px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .progress-container {
+        position: relative;
+        z-index: 2;
+        margin-top: 30px;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 5px;
+        overflow: hidden;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) inset;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #f5d5a6, #d4a574);
+        border-radius: 5px;
+        width: 65%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .progress-fill::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        animation: shimmer 2s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .progress-text {
+        font-family: "Inter", sans-serif;
+        font-size: 1rem;
+        color: #f5d5a6;
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* 2. ЦИТАТА (ВТОРАЯ) */
+      .quote-card {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(15px);
+        border-radius: 25px;
+        padding: 40px;
+        border: 1px solid rgba(245, 213, 166, 0.4);
+        max-width: 700px;
+        margin: 0 auto 50px;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(138, 74, 95, 0.25),
+          0 0 0 1px rgba(245, 213, 166, 0.1) inset;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .quote-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(245, 213, 166, 0.1) 0%,
+          transparent 50%
+        );
+        pointer-events: none;
+      }
+
+      .quote-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(245, 213, 166, 0.6);
+        box-shadow: 0 25px 50px rgba(138, 74, 95, 0.35),
+          0 0 0 1px rgba(245, 213, 166, 0.2) inset;
+      }
+
+      .quote-icon {
+        color: #f5d5a6;
+        font-size: 2.5rem;
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 2;
+        animation: gentleGlow 3s infinite alternate;
+      }
+
+      @keyframes gentleGlow {
+        0% {
+          opacity: 0.7;
+          filter: drop-shadow(0 0 5px rgba(245, 213, 166, 0.3));
+        }
+        100% {
+          opacity: 1;
+          filter: drop-shadow(0 0 15px rgba(245, 213, 166, 0.5));
+        }
+      }
+
+      .teacher-quote {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2rem;
+        color: #ffffff;
+        line-height: 1.6;
+        font-style: italic;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 2;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .quote-author {
+        font-family: "Inter", sans-serif;
+        font-size: 1.1rem;
+        color: rgba(245, 213, 166, 0.9);
+        font-weight: 500;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* 3. КНОПКА ЗАГРУЗКИ */
+      .main-action {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .upload-btn {
+        background: linear-gradient(135deg, #8a4a5f, #a86c82);
+        border: none;
+        border-radius: 50px;
+        color: white;
+        padding: 25px 50px;
+        font-family: "Inter", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 20px;
+        transition: all 0.4s ease;
+        box-shadow: 0 15px 40px rgba(138, 74, 95, 0.4),
+          0 0 0 2px rgba(245, 213, 166, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .upload-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .upload-btn:hover::before {
+        left: 100%;
+      }
+
+      .upload-btn:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 60px rgba(138, 74, 95, 0.5),
+          0 0 0 2px rgba(245, 213, 166, 0.3);
+        background: linear-gradient(135deg, #a86c82, #8a4a5f);
+      }
+
+      .upload-icon {
+        font-size: 1.6rem;
+        transition: transform 0.3s ease;
+        position: relative;
+        z-index: 2;
+      }
+
+      .upload-btn:hover .upload-icon {
+        transform: translateY(-5px);
+        animation: bounce 1s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(-5px);
+        }
+        50% {
+          transform: translateY(5px);
+        }
+      }
+
+      .btn-text {
+        position: relative;
+        z-index: 2;
+      }
+
+      /* 4. КАРТОЧКИ СТАТУСОВ */
+      .status-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .status-item {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px 25px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        text-align: center;
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 30px rgba(138, 74, 95, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .status-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.05) 50%,
+          rgba(255, 255, 255, 0.1) 100%
+        );
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .status-item:hover {
+        transform: translateY(-10px);
+        border-color: rgba(245, 213, 166, 0.5);
+        box-shadow: 0 20px 40px rgba(138, 74, 95, 0.3),
+          0 0 0 1px rgba(245, 213, 166, 0.2) inset;
+      }
+
+      .status-item-icon {
+        font-size: 2.5rem;
+        color: #f5d5a6;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 2;
+        filter: drop-shadow(0 0 8px rgba(245, 213, 166, 0.2));
+      }
+
+      .status-item-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.6rem;
+        color: #ffffff;
+        margin-bottom: 15px;
+        font-weight: 600;
+        position: relative;
+        z-index: 2;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .status-item-desc {
+        font-family: "Inter", sans-serif;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.6;
+        position: relative;
+        z-index: 2;
+      }
+
+      /* ФУТЕР В СТИЛЕ САЙТА */
+      .teacher-footer {
+        padding: 80px 40px 40px;
+        background: linear-gradient(
+          to bottom,
+          transparent,
+          rgba(15, 10, 26, 0.3),
+          rgba(15, 10, 26, 0.7),
+          rgba(15, 10, 26, 0.9)
+        );
+        color: var(--color-white);
+        position: relative;
+        margin-top: 100px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .teacher-footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 20% 30%,
+            rgba(45, 27, 78, 0.4) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(138, 74, 95, 0.3) 0%,
+            transparent 50%
+          );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        z-index: 2;
+      }
+
+      .footer-logo {
+        margin-bottom: 40px;
+      }
+
+      .footer-arabic {
+        font-family: "Amiri", serif;
+        font-size: 3.5rem;
+        color: var(--color-white);
+        display: block;
+        margin-bottom: 15px;
+        font-weight: 600;
+        text-shadow: 0 2px 15px rgba(212, 165, 116, 0.3);
+      }
+
+      .footer-latin {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2rem;
+        color: var(--color-secondary-light);
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      .footer-text {
+        margin-bottom: 40px;
+      }
+
+      .footer-text p {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.8rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-style: italic;
+        line-height: 1.5;
+        text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      .footer-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+        margin: 50px auto;
+        max-width: 400px;
+      }
+
+      .footer-line {
+        height: 1px;
+        flex: 1;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(212, 165, 116, 0.4),
+          transparent
+        );
+      }
+
+      .footer-dot {
+        width: 8px;
+        height: 8px;
+        background-color: var(--color-secondary-light);
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(212, 165, 116, 0.5);
+        animation: dotPulse 2s infinite;
+      }
+
+      @keyframes dotPulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.7;
+        }
+        50% {
+          transform: scale(1.3);
+          opacity: 1;
+        }
+      }
+
+      .footer-copyright {
+        font-family: "Inter", sans-serif;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.5);
+        letter-spacing: 0.5px;
+        font-weight: 300;
+        margin-top: 40px;
+      }
+
+      /* ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ */
+      .teacher-decoration {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .teacher-star {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #f5d5a6;
+        border-radius: 50%;
+        animation: teacherStarFloat 15s infinite linear;
+        filter: blur(0.5px);
+      }
+
+      @keyframes teacherStarFloat {
+        0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 0.3;
+        }
+        50% {
+          transform: translate(30px, 50px) scale(1.5);
+          opacity: 0.8;
+        }
+        100% {
+          transform: translate(0, 0) scale(1);
+          opacity: 0.3;
+        }
+      }
+
+      .floating-ayat {
+        position: absolute;
+        font-family: "Amiri", serif;
+        font-size: 1.8rem;
+        color: rgba(255, 255, 255, 0.08);
+        animation: ayatFloat 25s infinite linear;
+        pointer-events: none;
+      }
+
+      @keyframes ayatFloat {
+        0% {
+          transform: translate(0, 0) rotate(0deg);
+          opacity: 0.1;
+        }
+        50% {
+          transform: translate(50px, 80px) rotate(180deg);
+          opacity: 0.15;
+        }
+        100% {
+          transform: translate(0, 0) rotate(360deg);
+          opacity: 0.1;
+        }
+      }
+
+      /* АДАПТИВНОСТЬ */
+      @media (max-width: 768px) {
+        .teacher-dashboard {
+          padding: 80px 20px 40px;
+        }
+
+        .back-btn {
+          padding: 10px 20px;
+          font-size: 0.9rem;
+        }
+
+        .back-btn span {
+          display: none;
+        }
+
+        .teacher-logo-arabic {
+          font-size: 3.5rem;
+        }
+
+        .teacher-logo-latin {
+          font-size: 1.8rem;
+          letter-spacing: 3px;
+        }
+
+        .teacher-logo-subtitle {
+          font-size: 1.2rem;
+        }
+
+        .greeting-arabic {
+          font-size: 2.8rem;
+        }
+
+        .greeting-name {
+          font-size: 2.2rem;
+        }
+
+        .status-card,
+        .quote-card {
+          padding: 30px 20px;
+          margin-bottom: 30px;
+        }
+
+        .status-title {
+          font-size: 2rem;
+        }
+
+        .teacher-quote {
+          font-size: 1.6rem;
+        }
+
+        .upload-btn {
+          padding: 20px 40px;
+          font-size: 1.2rem;
+          gap: 15px;
+        }
+
+        .status-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .status-item {
+          padding: 25px 20px;
+        }
+
+        .teacher-footer {
+          padding: 60px 20px 30px;
+        }
+
+        .footer-arabic {
+          font-size: 2.8rem;
+        }
+
+        .footer-latin {
+          font-size: 1.6rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .teacher-logo-arabic {
+          font-size: 2.8rem;
+        }
+
+        .teacher-logo-latin {
+          font-size: 1.5rem;
+          letter-spacing: 2px;
+        }
+
+        .greeting-arabic {
+          font-size: 2.2rem;
+        }
+
+        .greeting-name {
+          font-size: 1.8rem;
+        }
+
+        .status-title {
+          font-size: 1.8rem;
+        }
+
+        .teacher-quote {
+          font-size: 1.4rem;
+        }
+
+        .upload-btn {
+          padding: 18px 35px;
+          font-size: 1.1rem;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .status-item-title {
+          font-size: 1.4rem;
+        }
+
+        .footer-arabic {
+          font-size: 2.2rem;
+        }
+
+        .footer-latin {
+          font-size: 1.3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ФОН -->
+    <div class="background-image"></div>
+    <div class="background-overlay"></div>
+
+    <!-- ДОПОЛНИТЕЛЬНЫЙ ТУМАННЫЙ ФОН -->
+    <div class="teacher-bg-overlay"></div>
+
+    <!-- КНОПКА НАЗАД -->
+    <div class="back-to-home">
+      <a href="index.html" class="back-btn"
+        ><i class="fas fa-arrow-left"></i>
+        <span>На главную</span>
+      </a>
+    </div>
+
+    <!-- ОСНОВНОЙ КОНТЕНТ -->
+    <div class="teacher-dashboard">
+      <div class="dashboard-container">
+        <!-- ЛОГОТИП MA'RIFA -->
+        <div class="teacher-logo-container">
+          <a href="index.html" class="teacher-logo">
+            <div class="teacher-logo-arabic">مَعْرِفَة</div>
+            <div class="teacher-logo-latin">MA'RIFA</div>
+            <div class="teacher-logo-subtitle">Кабинет преподавателя</div>
+          </a>
+        </div>
+
+        <!-- ШАПКА ПРОФИЛЯ -->
+        <header class="teacher-header">
+          <div class="greeting-container">
+            <h1 class="greeting-arabic">ٱلسَّلَامُ عَلَيْكُمْ</h1>
+            <h2 class="greeting-name" id="teacherName">Уважаемый учитель</h2>
+          </div>
+        </header>
+
+        <!-- 1. КАРТОЧКА СТАТУСА РАЗРАБОТКИ -->
+        <div class="status-card">
+          <div class="status-icon">
+            <i class="fas fa-tools"></i>
+          </div>
+          <h3 class="status-title">Платформа в разработке</h3>
+          <p class="status-text">
+            Мы активно работаем над созданием полноценной платформы для
+            преподавателей. В ближайшее время вы сможете управлять студентами,
+            назначать уроки и отслеживать прогресс.
+          </p>
+
+          <div class="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+            <div class="progress-text">
+              <span>Текущий прогресс:</span>
+              <span>65% завершено</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. ЦИТАТА -->
+        <div class="quote-card">
+          <div class="quote-icon">
+            <i class="fas fa-star-and-crescent"></i>
+          </div>
+          <p class="teacher-quote">
+            "Лучший из вас — изучающий Коран и обучающий ему других"
+          </p>
+          <p class="quote-author">— Аль-Бухари</p>
+        </div>
+
+        <!-- 3. КНОПКА ЗАГРУЗКИ -->
+        <div class="main-action">
+          <button class="upload-btn" id="uploadMaterialsBtn">
+            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+            <span class="btn-text">Загрузить учебные материалы</span>
+          </button>
+        </div>
+
+        <!-- 4. КАРТОЧКИ СТАТУСОВ -->
+        <div class="status-grid">
+          <div class="status-item">
+            <div class="status-item-icon">
+              <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <h4 class="status-item-title">Профиль учителя</h4>
+            <p class="status-item-desc">Аккаунт успешно создан и подтверждён</p>
+          </div>
+
+          <div class="status-item">
+            <div class="status-item-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <h4 class="status-item-title">Материалы</h4>
+            <p class="status-item-desc">Готовы к загрузке учебных материалов</p>
+          </div>
+
+          <div class="status-item">
+            <div class="status-item-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h4 class="status-item-title">Скоро</h4>
+            <p class="status-item-desc">Управление студентами и расписание</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ДЕКОРАТИВНЫЕ ЭЛЕМЕНТЫ -->
+      <div class="teacher-decoration" id="teacherDecoration"></div>
+    </div>
+    <!-- ФУТЕР -->
+    <footer class="teacher-footer">
+      <div class="footer-container">
+        <div class="footer-logo">
+          <span class="footer-arabic">مَعْرِفَة</span>
+          <span class="footer-latin">MA'RIFA</span>
+        </div>
+        <div class="footer-text">
+          <p>Путь к совершенному чтению начинается здесь</p>
+        </div>
+        <div class="footer-divider">
+          <div class="footer-line"></div>
+          <div class="footer-dot"></div>
+          <div class="footer-line"></div>
+        </div>
+        <div class="footer-copyright">
+          © 2024 MA'RIFA. Искусство Таджвида. Все права сохранены.
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      console.log("=== КАБИНЕТ УЧИТЕЛЯ - ОБНОВЛЁННЫЙ ===");
+
+      // ПОЛУЧЕНИЕ ИМЕНИ УЧИТЕЛЯ
+      document.addEventListener('DOMContentLoaded', function() {
+          // Получаем данные пользователя из localStorage
+          const currentUser = JSON.parse(localStorage.getItem('marifa_currentUser'));
+
+          if (currentUser && currentUser.name) {
+              document.getElementById('teacherName').textContent = currentUser.name;
+              console.log(`👋 Добро пожаловать, ${currentUser.name}!`);
+          } else {
+              console.log('⚠️ Имя пользователя не найдено');
+          }
+
+          // СОЗДАНИЕ ДЕКОРАТИВНЫХ ЭЛЕМЕНТОВ
+          createDecoration();
+
+          // ОБРАБОТКА КНОПКИ ЗАГРУЗКИ
+          const uploadBtn = document.getElementById('uploadMaterialsBtn');
+          if (uploadBtn) {
+              uploadBtn.addEventListener('click', function() {
+                  // Анимация кнопки
+                  this.style.transform = 'scale(0.95)';
+
+                  // Создаём эффект частиц
+                  createButtonParticles(this);
+
+                  // Показываем сообщение
+                  setTimeout(() => {
+                      alert('✨ Функция загрузки материалов скоро будет доступна!\n\nМы уведомим вас, когда функция станет активной.');
+                      this.style.transform = 'scale(1)';
+                  }, 200);
+              });
+          }
+
+          // АНИМАЦИЯ ПОЯВЛЕНИЯ ЭЛЕМЕНТОВ
+          setTimeout(() => {
+              const elements = [
+                  '.teacher-logo-container',
+                  '.teacher-header',
+                  '.status-card',
+                  '.quote-card',
+                  '.main-action',
+                  '.status-grid',
+                  '.teacher-footer'
+              ];
+
+              elements.forEach((selector, index) => {
+                  const element = document.querySelector(selector);
+                  if (element) {
+                      element.style.opacity = '0';
+                      element.style.transform = 'translateY(30px)';
+                      element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+
+                      setTimeout(() => {
+                          element.style.opacity = '1';
+                          element.style.transform = 'translateY(0)';
+                      }, index * 200);
+                  }
+              });
+          }, 300);
+
+          console.log('✅ Кабинет учителя инициализирован');
+      });
+
+      // ФУНКЦИЯ СОЗДАНИЯ ДЕКОРАЦИИ
+      function createDecoration() {
+          const container = document.getElementById('teacherDecoration');
+          if (!container) return;
+
+          // Создаём звёзды
+          for (let i = 0; i < 20; i++) {
+              const star = document.createElement('div');
+              star.className = 'teacher-star';
+              star.style.left = Math.random() * 100 + '%';
+              star.style.top = Math.random() * 100 + '%';
+              star.style.animationDuration = (10 + Math.random() * 20) + 's';
+              star.style.animationDelay = Math.random() * 10 + 's';
+              star.style.opacity = Math.random() * 0.5 + 0.1;
+              star.style.width = star.style.height = (2 + Math.random() * 3) + 'px';
+              container.appendChild(star);
+          }
+
+          // Создаём плавающие аяты (арабский текст)
+          const ayats = ['ٱللَّٰهُ', 'الرَّحْمَٰنُ', 'الرَّحِيمُ', 'مَالِكِ', 'يَوْمِ', 'الدِّينِ'];
+          for (let i = 0; i < 6; i++) {
+              const ayat = document.createElement('div');
+              ayat.className = 'floating-ayat';
+              ayat.textContent = ayats[i];
+              ayat.style.left = Math.random() * 100 + '%';
+              ayat.style.top = Math.random() * 100 + '%';
+              ayat.style.animationDuration = (20 + Math.random() * 30) + 's';
+              ayat.style.animationDelay = Math.random() * 20 + 's';
+              ayat.style.fontSize = (1.5 + Math.random() * 1) + 'rem';
+              container.appendChild(ayat);
+          }
+      }
+
+      // ФУНКЦИЯ ЧАСТИЦ ДЛЯ КНОПКИ
+      function createButtonParticles(button) {
+          const rect = button.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+
+          for (let i = 0; i < 12; i++) {
+              const particle = document.createElement('div');
+              particle.style.cssText = `
+                  position: fixed;
+                  width: 6px;
+                  height: 6px;
+                  background: #f5d5a6;
+                  border-radius: 50%;
+                  left: ${centerX}px;
+                  top: ${centerY}px;
+                  z-index: 1000;
+                  pointer-events: none;
+                  filter: blur(0.5px);
+                  opacity: 0;
+              `;
+
+              document.body.appendChild(particle);
+
+              const angle = (i / 12) * Math.PI * 2;
+              const distance = 40 + Math.random() * 30;
+              const targetX = centerX + Math.cos(angle) * distance;
+              const targetY = centerY + Math.sin(angle) * distance;
+
+              particle.animate([
+                  { transform: 'translate(0, 0) scale(1)', opacity: 0.8 },
+                  { transform: translate(${targetX - centerX}px, ${targetY - centerY}px) scale(0), opacity: 0 }
+              ], {
+                  duration: 800,
+                  easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+              });
+
+              setTimeout(() => particle.remove(), 800);
+          }
+      }
+
+      // ПРИМЕРНЫЙ ОБЪЕКТ ПОЛЬЗОВАТЕЛЯ (для тестирования)
+      function initDemoTeacher() {
+          if (!localStorage.getItem('marifa_currentUser')) {
+              const demoTeacher = {
+                  name: "Учитель Мухаммад",
+                  email: "teacher@example.com",
+                  role: "teacher",
+                  registered: new Date().toISOString()
+              };
+              localStorage.setItem('marifa_currentUser', JSON.stringify(demoTeacher));
+          }
+      }
+
+      // Вызываем при загрузке
+      window.addEventListener('load', initDemoTeacher);
+    </script>
+  </body>
+</html>

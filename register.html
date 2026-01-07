@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MA'RIFA - Регистрация</title>
+
+    <!-- Подключаем те же стили что на главной -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- ДОБАВЬТЕ ЭТОТ CSS ДЛЯ РЕГИСТРАЦИИ -->
+    <style>
+      /* СТИЛИ ДЛЯ РЕГИСТРАЦИИ */
+      .register-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .register-container {
+        width: 100%;
+        max-width: 500px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        padding: 50px 40px;
+        box-shadow: 0 25px 60px rgba(138, 74, 95, 0.25);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .register-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .register-arabic {
+        font-family: "Noto Naskh Arabic", serif;
+        font-size: 3.5rem;
+        color: #2d1b4e;
+        margin-bottom: 15px;
+      }
+
+      .register-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2.5rem;
+        color: #8a4a5f;
+        margin-bottom: 10px;
+      }
+
+      .register-form {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .form-group label {
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+        color: #4a4048;
+        font-size: 0.95rem;
+      }
+
+      .register-form input,
+      .register-form select {
+        padding: 16px 20px;
+        border: 2px solid rgba(138, 74, 95, 0.2);
+        border-radius: 12px;
+        font-family: "Inter", sans-serif;
+        font-size: 1rem;
+        background: white;
+        transition: all 0.3s ease;
+      }
+
+      .register-form input:focus,
+      .register-form select:focus {
+        outline: none;
+        border-color: #8a4a5f;
+        box-shadow: 0 0 0 3px rgba(138, 74, 95, 0.1);
+      }
+
+      .submit-btn {
+        padding: 18px;
+        background: linear-gradient(135deg, #8a4a5f, #6d394a);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-family: "Inter", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(138, 74, 95, 0.3);
+      }
+
+      .back-link {
+        text-align: center;
+        margin-top: 25px;
+      }
+
+      .back-link a {
+        color: #8a4a5f;
+        text-decoration: none;
+        font-family: "Inter", sans-serif;
+      }
+
+      .back-link a:hover {
+        text-decoration: underline;
+      }
+
+      /* Индикатор роли */
+      .role-indicator {
+        background: rgba(138, 74, 95, 0.1);
+        padding: 15px;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 20px;
+        border-left: 4px solid #8a4a5f;
+      }
+
+      .role-indicator.teacher {
+        border-left-color: #d4a574;
+      }
+    </style>
+
+    <!-- Те же шрифты что на главной -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700;800&family=Cormorant+Garamond:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lateef:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ФОН как на главной -->
+    <div class="background-image"></div>
+    <div class="background-overlay"></div>
+
+    <!-- РЕГИСТРАЦИЯ -->
+    <div class="register-page">
+      <div class="register-container">
+        <div class="register-header">
+          <div class="register-arabic">تَسْجِيل</div>
+          <h1 class="register-title">Регистрация</h1>
+          <p id="roleText">Заполните форму для начала пути</p>
+        </div>
+
+        <!-- Индикатор выбранной роли -->
+        <div class="role-indicator" id="roleIndicator">
+          <i class="fas fa-user-graduate"></i>
+          <span id="roleDisplay">Регистрация ученика</span>
+        </div>
+
+        <form id="registerForm" class="register-form">
+          <div class="form-group">
+            <label>Ваше полное имя</label>
+            <input
+              type="text"
+              id="fullName"
+              placeholder="Введите ваше имя"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Email адрес</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="example@mail.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Пароль</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Минимум 6 символов"
+              required
+              minlength="6"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Уровень подготовки</label>
+            <select id="level">
+              <option value="">Выберите ваш уровень</option>
+              <option value="beginner">Начинающий (только начинаю)</option>
+              <option value="intermediate">Продолжающий (знаю основы)</option>
+              <option value="advanced">
+                Продвинутый (хочу совершенствоваться)
+              </option>
+            </select>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <i class="fas fa-user-plus"></i> Создать аккаунт
+          </button>
+
+          <div class="back-link">
+            <a href="index.html"
+              ><i class="fas fa-arrow-left"></i> Вернуться на главную</a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- СКРИПТ РЕГИСТРАЦИИ -->
+    <script>
+      // Получаем роль из URL
+      function getRoleFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const role = urlParams.get("role");
+        console.log("Роль из URL:", role);
+        return role || "student"; // по умолчанию ученик
+      }
+
+      // При загрузке страницы
+      document.addEventListener("DOMContentLoaded", function () {
+        const role = getRoleFromURL();
+        const roleDisplay = document.getElementById("roleDisplay");
+        const roleText = document.getElementById("roleText");
+        const roleIndicator = document.getElementById("roleIndicator");
+        const submitBtn = document.getElementById("submitBtn");
+
+        // Устанавливаем текст в зависимости от роли
+        if (role === "teacher") {
+          roleDisplay.textContent = "Регистрация учителя";
+          roleText.textContent = "Заполните форму для начала преподавания";
+          roleIndicator.classList.add("teacher");
+          roleIndicator.innerHTML =
+            '<i class="fas fa-chalkboard-teacher"></i> <span>Регистрация учителя</span>';
+          submitBtn.innerHTML =
+            '<i class="fas fa-chalkboard-teacher"></i> Создать аккаунт учителя';
+
+          // Прячем поле уровня (только для учеников)
+          document.querySelector(".form-group:nth-child(4)").style.display =
+            "none";
+        } else {
+          roleDisplay.textContent = "Регистрация ученика";
+          roleText.textContent = "Заполните форму для начала обучения";
+        }
+
+        // Обработка формы
+        document
+          .getElementById("registerForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Собираем данные
+            const userData = {
+              role: role,
+              name: document.getElementById("fullName").value,
+              email: document.getElementById("email").value,
+              level: document.getElementById("level").value || "beginner",
+              registered: new Date().toISOString(),
+            };
+
+            // Проверяем пароль
+            const password = document.getElementById("password").value;
+            if (password.length < 6) {
+              alert("❌ Пароль должен быть минимум 6 символов");
+              return;
+            }
+
+            // Сохраняем в localStorage
+            localStorage.setItem("marifa_user", JSON.stringify(userData));
+            console.log("Пользователь сохранён:", userData);
+
+            // Меняем кнопку
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> Успешно!';
+            submitBtn.style.background =
+              "linear-gradient(135deg, #4CAF50, #2E7D32)";
+            submitBtn.disabled = true;
+
+            // Переход через 2 секунды
+            setTimeout(() => {
+              if (userData.role === "teacher") {
+                window.location.href = "teacher-dashboard.html";
+              } else {
+                window.location.href = "dashboard.html";
+              }
+            }, 2000);
+          });
+      });
+    </script>
+  </body>
+</html>
